@@ -25,72 +25,57 @@ a) O(1)
 b) O(log n)
 c) O(n)
 d) O(n log n)
-Answer: a
 
 12..Which of the following is not an application of priority queues?
 a) Dijkstra's algorithm for finding the shortest path in a graph.
 b) Huffman coding for data compression.
 c) Quick sort for sorting elements.
 d) Task scheduling in an operating system.
-Answer: c
 
 13.Which type of priority queue is commonly used in the heap sort algorithm?
 a) Min-priority queue
 b) Max-priority queue
 c) Both min-priority and max-priority queues
 d) Neither min-priority nor max-priority queue
-Answer: a
 
 14.Which type of queue is used for scheduling processes in an operating system?
 a) Circular queue
 b) Priority queue
 c) Double-ended queue (deque)
 d) Priority queue
-Answer: b
-
 
 15.In a queue, which operation has a time complexity of O(1)?
 a) Enqueue
 b) Dequeue
 c) Front
 d) Reverse
-Answer: a
-
-
 
 16. What is the time complexity of the push operation in a stack implemented using an array with a fixed size? 
 a. O(1) 
 b. O(log n) 
 c. O(n) 
 d. O(n^2)
-Answer: a. O(1)
 
 17. Which of the following is a potential issue when using a stack implemented with an array?
  a. Memory fragmentation 
 b. Slow access to elements 
 c. Difficulty in resizing 
 d. Lack of LIFO ordering
-Answer: c. Difficulty in resizing
 
 18. What is the time complexity of the dequeue operation in a queue implemented using a linked list?
  a. O(1)
  b. O(log n) 
 c. O(n) 
 d. O(n^2)
-Answer: a. O(1)
-
 
 19. Which of the following is an example of a real-world scenario where a stack can be used?
  a. Tracking the movement of vehicles in a city
  b. Evaluating mathematical expressions with parentheses 
 c. Storing customer data in a database 
 d. Sorting a list of integers
-Answer: b. Evaluating mathematical expressions with parentheses
 
 20. Which of the following is an example of a real-world scenario where a queue can be used? 
 a. Managing a to-do list 
 b. Storing employee information in a database
 c. Simulating a stack of plates 
 d. Sorting a list of names alphabetically
-Answer: c. Simulating a stack of plates
-
