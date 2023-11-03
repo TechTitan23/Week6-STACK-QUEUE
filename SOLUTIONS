@@ -1,0 +1,508 @@
+EXERCISE :
+
+1. Write a program to reverse a string using Stack.
+Pseudocode :
+function reverseStringUsingStack(inputString):
+    # Create an empty stack to hold characters
+    stack = createEmptyStack()
+     # Create an empty string to store the reversed string
+    reversedString = ""
+   # Push each character from the input string onto the stack
+    for each character in inputString:
+    stack.push(character)
+   # Pop characters from the stack to build the reversed string
+    while not stack.isEmpty():
+     character = stack.pop()
+     reversedString = reversedString + character
+     return reversedString
+
+2. Write a program to implement a stack using a queue.
+Pseudocode :
+Queue1 = empty queue
+Queue2 = empty queue
+function push(element):
+    # To push an element onto the stack, we use Queue1
+    Queue1.enqueue(element)
+function pop():
+    if Queue1 is empty:
+        # If Queue1 is empty, swap Queue1 and Queue2
+        # to maintain the order of elements
+        return "Stack is empty"
+        # Move all elements from Queue1 to Queue2 except the last one
+    while Queue1 has more than 1 element:
+        element = Queue1.dequeue()
+        Queue2.enqueue(element)
+    # The last element in Queue1 is the top element in the stack
+    topElement = Queue1.dequeue()
+    # Swap Queue1 and Queue2, making Queue2 empty
+    temp = Queue1
+    Queue1 = Queue2
+    Queue2 = temp
+    return topElement
+function top():
+    if Queue1 is empty:
+        return "Stack is empty"
+     # Similar to pop, but we don't remove the top element
+    while Queue1 has more than 1 element:
+        element = Queue1.dequeue()
+       Queue2.enqueue(element)
+     topElement = Queue1.dequeue()
+    Queue2.enqueue(topElement)
+    temp = Queue1
+    Queue1 = Queue2
+    Queue2 = temp
+    return topElement
+function isEmpty():
+    return Queue1 is empty
+
+3. Write a program to implement to implement a circular queue.
+Pseudocode :
+# Define a CircularQueue class
+class CircularQueue:
+    constructor(size):
+        # Initialize the circular queue with a fixed size
+        self.size = size
+        self.queue = [null] * size  # Create an array to store elements
+        self.front = self.rear = -1  # Initialize front and rear pointers
+    # Function to check if the circular queue is empty
+    function isEmpty():
+        return self.front == -1 and self.rear == -1
+    # Function to check if the circular queue is full
+    function isFull():
+        return (self.rear + 1) % self.size == self.front
+    # Function to add an element to the circular queue
+    function enqueue(element):
+        if self.isFull():
+            return "Queue is full"
+        elif self.isEmpty():
+            # If the queue is empty, set front and rear to 0
+            self.front = self.rear = 0
+        else:
+            # Move the rear pointer circularly
+            self.rear = (self.rear + 1) % self.size
+        self.queue[self.rear] = element
+   # Function to remove an element from the circular queue
+    function dequeue():
+        if self.isEmpty():
+            return "Queue is empty"
+        elif self.front == self.rear:
+            # If there is only one element in the queue, set front and rear to -1
+            element = self.queue[self.front]
+            self.front = self.rear = -1
+ else:
+            # Move the front pointer circularly
+            element = self.queue[self.front]
+            self.front = (self.front + 1) % self.size
+        return element
+     # Function to get the front element of the circular queue
+    function getFront():
+        if self.isEmpty():
+            return "Queue is empty"
+        return self.queue[self.front]
+     # Function to get the rear element of the circular queue
+    function getRear():
+        if self.isEmpty():
+            return "Queue is empty"
+        return self.queue[self.rear]
+
+4. Write a program to implement a stack with a function that returns the middle element in O(1) time.
+Pseudocode :
+# Define a Node class for a doubly linked list
+class Node:
+    constructor(data):
+        self.data = data
+        self.prev = null
+        self.next = null
+# Define a StackWithMiddle class
+class StackWithMiddle:
+    constructor():
+        self.top = null  # Pointer to the top of the stack
+        self.middle = null  # Pointer to the middle of the stack
+        self.count = 0  # Count of elements in the stack
+ # Function to push an element onto the stack
+    function push(data):
+        new_node = Node(data)
+        new_node.next = self.top
+        if self.top is not null:
+            self.top.prev = new_node
+        self.top = new_node
+        self.count += 1
+if self.count == 1:
+            # The first element is also the middle element
+            self.middle = new_node
+        elif self.count % 2 == 1:
+            # Update the middle pointer when the count is odd
+            self.middle = self.middle.prev
+ # Function to pop the top element from the stack
+    function pop():
+        if self.top is null:
+            return "Stack is empty"
+        popped_data = self.top.data
+        self.top = self.top.next
+        if self.top is not null:
+            self.top.prev = null
+        self.count -= 1
+  if self.count % 2 == 0:
+            # Update the middle pointer when the count becomes even
+            self.middle = self.middle.next
+ return popped_data
+# Function to get the middle element of the stack in O(1) time
+    function getMiddle():
+        if self.middle is null:
+            return "Stack is empty"
+        return self.middle.data
+ # Function to check if the stack is empty
+    function isEmpty():
+        return self.top is null
+
+5. Write a program to implement a double-ended queue (deque) using arrays.
+Pseudocode :
+# Define a Deque class
+class Deque:
+    constructor(size):
+        # Initialize the deque with a fixed size
+        self.size = size
+        self.queue = [null] * size  # Create an array to store elements
+        self.front = -1  # Initialize front pointer
+        self.rear = -1  # Initialize rear pointer
+    # Function to check if the deque is empty
+    function isEmpty():
+        return self.front == -1
+    # Function to check if the deque is full
+    function isFull():
+        return (
+            (self.rear == self.size - 1 and self.front == 0) or
+            (self.rear + 1 == self.front)
+    # Function to add an element to the front of the deque
+    function insertFront(element):
+        if self.isFull():
+            return "Deque is full"
+        if self.isEmpty():
+            self.front = self.rear = 0
+        elif self.front == 0:
+            self.front = self.size - 1
+        else:
+            self.front = self.front - 1
+        self.queue[self.front] = element
+    # Function to add an element to the rear of the deque
+    function insertRear(element):
+        if self.isFull():
+            return "Deque is full"
+        if self.isEmpty():
+            self.front = self.rear = 0
+        elif self.rear == self.size - 1:
+            self.rear = 0
+        else:
+            self.rear = self.rear + 1
+        self.queue[self.rear] = element
+     # Function to remove an element from the front of the deque
+    function deleteFront():
+        if self.isEmpty():
+            return "Deque is empty"
+        if self.front == self.rear:
+            self.front = self.rear = -1
+        else:
+            if self.front == self.size - 1:
+                self.front = 0
+            else:
+                self.front = self.front + 1
+     # Function to remove an element from the rear of the deque
+    function deleteRear():
+        if self.isEmpty():
+            return "Deque is empty"
+        if self.front == self.rear:
+            self.front = self.rear = -1
+        else:
+            if self.rear == 0:
+                self.rear = self.size - 1
+            else:
+                self.rear = self.rear - 1
+     # Function to get the front element of the deque
+    function getFront():
+        if self.isEmpty():
+            return "Deque is empty"
+        return self.queue[self.front]
+     # Function to get the rear element of the deque
+    function getRear():
+        if self.isEmpty():
+            return "Deque is empty"
+        return self.queue[self.rear]
+
+6. Write a program to implement a queue using two priority queues.
+Pseudocode :
+# Define a QueueUsingTwoPriorityQueues class
+class QueueUsingTwoPriorityQueues:
+    constructor():
+        # Initialize two empty priority queues (can be min-heaps or max-heaps)
+        self.enqueuePriorityQueue = createEmptyPriorityQueue()
+        self.dequeuePriorityQueue = createEmptyPriorityQueue()
+    # Function to enqueue an element
+    function enqueue(element, priority):
+        # Enqueue the element with its priority into the first priority queue
+        self.enqueuePriorityQueue.enqueue(element, priority)
+# Function to dequeue an element
+    function dequeue():
+        if self.isEmpty():
+            return "Queue is empty"
+         # If the dequeue priority queue is empty, reverse the order by transferring elements
+        if self.dequeuePriorityQueue.isEmpty():
+            while not self.enqueuePriorityQueue.isEmpty():
+                element, priority = self.enqueuePriorityQueue.dequeue()
+                # Reverse the priority  to reverse the order
+                self.dequeuePriorityQueue.enqueue(element, -priority)
+                # Dequeue an element from the dequeue priority queue
+        element, priority = self.dequeuePriorityQueue.dequeue()
+        # Reverse the priority back to its original value
+        priority = -priority
+return element
+# Function to check if the queue is empty
+    function isEmpty():
+        return self.enqueuePriorityQueue.isEmpty() and self.dequeuePriorityQueue.isEmpty()
+
+7. Write a program to implement a stack that supports push, pop, and retrieve the middle element in O(1) time.
+Pseudocode :
+# Define a StackWithMiddle class
+class StackWithMiddle:
+    constructor():
+        self.stack = []  # Main stack to store elements
+        self.middle = null  # Variable to track the middle element
+        self.count = 0  # Count of elements in the stack
+    # Function to push an element onto the stack
+    function push(data):
+        if self.count == 0:
+            self.middle = data
+        elif self.count % 2 == 0:
+            # Update the middle when the count is even
+            self.middle = data
+        self.stack.push(data)
+        self.count += 1
+# Function to pop the top element from the stack
+    function pop():
+        if self.isEmpty():
+            return "Stack is empty"
+                popped_data = self.stack.pop()
+        self.count -= 1
+        if self.count % 2 == 1:
+            # Update the middle when the count becomes odd
+            self.middle = self.stack[self.count // 2]
+        return popped_data
+    # Function to retrieve the middle element of the stack in O(1) time
+    function getMiddle():
+        if self.isEmpty():
+            return "Stack is empty"
+        return self.middle
+    # Function to check if the stack is empty
+    function isEmpty():
+        return self.count == 0
+
+8. Write a program to merge two priority queues into a single priority queue.
+Pseudocode :
+# Function to merge two priority queues into a single priority queue
+function mergePriorityQueues(queue1, queue2):
+    mergedQueue = createEmptyPriorityQueue()  # Create an empty priority queue to store merged elements
+    # Continue merging until both input queues are empty
+    while not queue1.isEmpty() and not queue2.isEmpty():
+        # Dequeue elements from both queues
+        element1, priority1 = queue1.dequeue()
+        element2, priority2 = queue2.dequeue()
+                # Compare priorities of the elements
+        if priority1 < priority2:
+            # Element from queue1 has higher priority
+            mergedQueue.enqueue(element1, priority1)
+            # Re-enqueue element2 from queue2 to avoid losing it
+            queue2.enqueue(element2, priority2)
+        else:
+            # Element from queue2 has higher priority
+            mergedQueue.enqueue(element2, priority2)
+            # Re-enqueue element1 from queue1 to avoid losing it
+            queue1.enqueue(element1, priority1)
+# If there are any remaining elements in queue1, enqueue them
+    while not queue1.isEmpty():
+        element1, priority1 = queue1.dequeue()
+        mergedQueue.enqueue(element1, priority1)
+ # If there are any remaining elements in queue2, enqueue them
+    while not queue2.isEmpty():
+        element2, priority2 = queue2.dequeue()
+        mergedQueue.enqueue(element2, priority2)
+    return mergedQueue
+
+9. Write a program to find the minimum element in a priority queue.
+Pseudocode :
+# Function to find the minimum element in a min-priority queue
+function findMinimumElement(minPriorityQueue):
+    if minPriorityQueue is empty:
+        return "Priority queue is empty"
+     # If the min-priority queue is implemented as a binary heap,
+    # you can simply extract the root element, which is the minimum.
+    minimumElement = minPriorityQueue.extractMin()
+     return minimumElement
+
+10. Write a program implement a priority queue that supports updating the priority of an element.
+Pseudocode :
+# Define a class for the priority queue element
+class PriorityQueueElement:
+    constructor(value, priority):
+        self.value = value
+        self.priority = priority
+# Define the Priority Queue with Update Support
+class PriorityQueueWithUpdate:
+    constructor():
+        # Initialize an empty array for the binary heap (min-heap or max-heap)
+        self.heap = []
+        # Initialize a dictionary to map elements to their positions in the heap
+        self.element_positions = {}
+# Function to add an element with a given priority to the priority queue
+    function insert(element, priority):
+        new_element = PriorityQueueElement(element, priority)
+        self.heap.append(new_element)
+        # Track the position of the new element
+        index = len(self.heap) - 1
+        self.element_positions[element] = index
+        # Heapify the heap to maintain the heap property
+        self.heapifyUp(index)
+ # Function to update the priority of an element in the priority queue
+    function updatePriority(element, new_priority):
+        if element not in self.element_positions:
+            return "Element not found in the priority queue"
+        index = self.element_positions[element]
+        current_priority = self.heap[index].priority
+        self.heap[index].priority = new_priority
+        # Check if the new priority is higher (for min-heap) or lower (for max-heap)
+        if new_priority < current_priority:
+            self.heapifyUp(index)
+        else:
+            self.heapifyDown(index)
+  # Function to extract the element with the highest priority (for min-heap)
+    # or lowest priority (for max-heap)
+    function extract():
+        if len(self.heap) == 0:
+            return "Priority queue is empty"
+        if len(self.heap) == 1:
+            extracted_element = self.heap[0].value
+            del self.element_positions[self.heap[0].value]
+            self.heap = []
+        else:
+            # Swap the root element with the last element and remove the last element
+            self.swap(0, len(self.heap) - 1)
+            extracted_element = self.heap.pop().value
+            del self.element_positions[extracted_element]
+            # Heapify the heap to maintain the heap property
+            self.heapifyDown(0)
+        return extracted_element
+# Helper function to move an element up the heap to maintain the heap property
+    function heapifyUp(index):
+        while index > 0:
+            parent_index = (index - 1) // 2
+            if self.heap[index].priority < self.heap[parent_index].priority:
+                self.swap(index, parent_index)
+                index = parent_index
+            else:
+                break
+  # Helper function to move an element down the heap to maintain the heap property
+    function heapifyDown(index):
+        while True:
+            left_child_index = 2 * index + 1
+            right_child_index = 2 * index + 2
+            smallest = index
+            if (
+                left_child_index < len(self.heap)
+                and self.heap[left_child_index].priority < self.heap[smallest].priority
+            ):
+                smallest = left_child_index
+            if (
+                right_child_index < len(self.heap)
+                and self.heap[right_child_index].priority < self.heap[smallest].priority
+            ):
+                smallest = right_child_index
+            if smallest != index:
+                self.swap(index, smallest)
+                index = smallest
+            else:
+                break
+ # Helper function to swap two elements in the heap and update their positions
+    function swap(index1, index2):
+        element1 = self.heap[index1].value
+        element2 = self.heap[index2].value
+        self.heap[index1], self.heap[index2] = self.heap[index2], self.heap[index1]
+        self.element_positions[element1], self.element_positions[element2] = index2, index1
+
+11.What is the time complexity of finding the minimum element in a min-priority queue?
+a) O(1)
+b) O(log n)
+c) O(n)
+d) O(n log n)
+Answer:b) O(log n)
+Explanation :Finding the minimum element in a min-priority queue typically involves extracting the element with the highest priority, which is usually the one with the lowest key (smallest value). Min-priority queues are often implemented using a binary heap data structure.In a binary heap, the root of the heap is guaranteed to be the minimum element. To maintain this property efficiently, the heap is organized in a way that allows for logarithmic time complexity for extraction of the minimum element. Specifically, when you extract the minimum element, you replace it with the last element in the heap (the one at the lowest level and rightmost position) and then "heapify" the heap to restore the heap property.
+The process of "heapify" involves repeatedly comparing the element with its children and swapping it with the smaller child until the heap property is restored. This process takes O(log n) time, where "n" is the number of elements in the priority queue.
+
+12..Which of the following is not an application of priority queues?
+a) Dijkstra's algorithm for finding the shortest path in a graph.
+b) Huffman coding for data compression.
+c) Quick sort for sorting elements.
+d) Task scheduling in an operating system.
+Answer:c) Quick sort for sorting elements.
+Explanation :Priority queues are not typically used directly for the quick sort algorithm. Quick sort typically uses other techniques, such as the partitioning of elements, to sort the array. Priority queues are commonly used in various applications like Dijkstra's algorithm for finding the shortest path, Huffman coding for data compression, and task scheduling in an operating system.
+
+13.Which type of priority queue is commonly used in the heap sort algorithm?
+a) Min-priority queue
+b) Max-priority queue
+c) Both min-priority and max-priority queues
+d) Neither min-priority nor max-priority queue
+Answer: a) Min-priority queue
+Explanation: Heap sort primarily uses a min-priority queue (min-heap) to sort elements. In a min-heap, the smallest element is always at the top. Heap sort repeatedly extracts the smallest element (the root), places it in the sorted part of the array, and then reorganizes the remaining elements to maintain the min-heap property. This process continues until the entire array is sorted in ascending order. 
+
+14.Which type of queue is used for scheduling processes in an operating system?
+a) Circular queue
+b) Priority queue
+c) Double-ended queue (deque)
+d) Priority queue
+Answer:b) Priority queue
+Explanation: The type of queue commonly used for scheduling processes in an operating system. In an operating system, processes are scheduled based on their priorities, and a priority queue is a suitable data structure for managing and prioritizing these processes.
+
+15.In a queue, which operation has a time complexity of O(1)?
+a) Enqueue
+b) Dequeue
+c) Front
+d) Reverse
+Answer: a) Enqueue
+Explanation:In a queue, the operation with a time complexity of O(1) is (a) Enqueue. This operation involves adding an element to the back of the queue, and it typically takes constant time because it doesn't depend on the size of the queue.
+
+16. What is the time complexity of the push operation in a stack implemented using an array with a fixed size? 
+a. O(1) 
+b. O(log n) 
+c. O(n) 
+d. O(n^2)
+Answer: a. O(1)
+Explanation:This is because pushing an element onto the stack simply involves incrementing the stack's top pointer and placing the element at the new top position, which can be done in constant time. The fixed size of the array doesn't affect the time complexity of the push operation.
+
+17. Which of the following is a potential issue when using a stack implemented with an array?
+ a. Memory fragmentation 
+b. Slow access to elements 
+c. Difficulty in resizing 
+d. Lack of LIFO ordering
+Answer: c. Difficulty in resizing
+Explanation: Difficulty in resizing. Arrays have a fixed size, and if you exceed that size by pushing too many elements onto the stack, you'll need to create a new, larger array and copy elements over, which can be an inefficient and complex operation. This resizing process can lead to performance issues and is a common challenge when implementing a stack with a fixed-size array.
+
+18. What is the time complexity of the dequeue operation in a queue implemented using a linked list?
+ a. O(1)
+ b. O(log n) 
+c. O(n) 
+d. O(n^2)
+Answer: a. O(1)
+Explanation: Dequeuing an element from the front of a linked list-based queue can be done in constant time because you simply update the front pointer to the next element in the list. This efficiency is one of the advantages of using a linked list for implementing a queue.
+
+19. Which of the following is an example of a real-world scenario where a stack can be used?
+ a. Tracking the movement of vehicles in a city
+ b. Evaluating mathematical expressions with parentheses 
+c. Storing customer data in a database 
+d. Sorting a list of integers
+Answer: b. Evaluating mathematical expressions with parentheses
+Explanation: Evaluating mathematical expressions with parentheses. Stacks are commonly employed in this context to handle the nesting and evaluation of expressions involving parentheses, ensuring that they are closed in the correct order, and operators and operands are evaluated accordingly.
+
+20. Which of the following is an example of a real-world scenario where a queue can be used? 
+a. Managing a to-do list 
+b. Storing employee information in a database
+c. Simulating a stack of plates 
+d. Sorting a list of names alphabetically
+Answer: c. Simulating a stack of plates
+Explanation: Simulating a stack of plates. In this scenario, you use a queue to represent a stack of plates where new plates are added to the top (enqueued) and removed from the bottom (dequeued). This mimics the real-life situation in a cafeteria or restaurant where plates are stacked, and the first one to be used is the one at the bottom of the stack. A queue can effectively model this behavior.
